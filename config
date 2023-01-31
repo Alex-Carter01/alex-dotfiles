@@ -1,0 +1,70 @@
+Host *
+    UseKeychain yes
+    Compression yes
+
+Host css-jump-1.watson.ibm.com
+  HostName 9.2.130.16
+  IdentityFile ~/.ssh/id_ed25519
+  User alexcarter
+  StrictHostKeyChecking=no
+  UserKnownHostsFile=/dev/null
+
+
+Host 192.168.122.148
+  HostName 192.168.122.148
+  User test
+
+Host skeld
+  HostName skelduz1.sl.cloud9.ibm.com
+  User acarter
+
+Host sl-jumphost01
+     HostName 169.45.76.245
+     User acarter
+     IdentityFile ~/.ssh/id_ed25519
+     StrictHostKeyChecking no
+     CheckHostIP no
+     ForwardAgent yes
+     ControlMaster auto
+     ControlPersist 10m
+     DynamicForward 1080
+     ProxyJump css-jump-1.watson.ibm.com
+
+Host sl-milan01
+    HostName 10.160.40.181
+    User acarter
+    IdentityFile ~/.ssh/id_ed25519
+    ProxyJump sl-jumphost01
+
+# ####################################
+# the jump host to the Alexandria
+# cluster nodes netsres[26-34] in 10-0
+# ###################################
+host velogin
+     hostname 9.2.156.99
+     User alexcarter
+     IdentityFile ~/.ssh/id_ed25519
+     StrictHostKeyChecking no
+     CheckHostIP no
+     ProxyCommand none
+     ForwardAgent yes
+     ControlMaster auto
+     ControlPersist 10m
+
+Host netsres42
+    HostName 172.16.17.42
+    User alexcarter
+    IdentityFile ~/.ssh/id_ed25519
+    ProxyJump velogin
+
+Host netsres43
+  HostName 172.16.17.43
+  User alexcarter
+  IdentityFile ~/.ssh/id_ed25519
+  ProxyJump velogin
+
+Host netsres45
+  HostName 172.16.17.45
+  User alexcarter
+  IdentityFile ~/.ssh/id_ed25519
+  ProxyJump velogin
