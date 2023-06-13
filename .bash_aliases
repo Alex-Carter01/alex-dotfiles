@@ -1,0 +1,7 @@
+alias kc='kubectl'
+alias kcp='kubectl get pods'
+alias kcn='kubectl get nodes --show-labels'
+alias kca='kubectl apply -f '
+alias kcd='kubectl delete -f '
+alias g='git'
+alias gs='git status'
